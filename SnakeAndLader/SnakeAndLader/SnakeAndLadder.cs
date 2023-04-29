@@ -40,8 +40,37 @@ namespace SnakeAndLadder
                         Console.WriteLine("Invalid option.");
                         break;
                 }
+                if (playerPosition < 0)
+                {
+                    playerPosition = 0;
+                }
+                else if (playerPosition > 100)
+                {
+                    playerPosition = 100;
+                }
+
+                if (playerPosition == 100)
+                {
+                    Console.WriteLine("Congratulations! You reached the finish.");
+                    break;
+                }
+
+                Console.WriteLine($"You are now at position {playerPosition}.");
             }
+
+            Console.WriteLine("Game over.");
+            Console.ReadKey();
         }
+    }
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -49,5 +78,3 @@ namespace SnakeAndLadder
 
 
         
-    }
-}
