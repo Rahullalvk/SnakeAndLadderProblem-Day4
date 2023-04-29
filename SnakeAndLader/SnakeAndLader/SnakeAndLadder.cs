@@ -14,10 +14,12 @@ namespace SnakeAndLadder
         {
             int playerPosition = 0;
             Random random = new Random();
+            int diceRolls = 0;
             while (playerPosition < 100)
             {
                 int roll = random.Next(1, 7);
                 Console.WriteLine($"You rolled a {roll}.");
+                diceRolls++;
 
                 int option = random.Next(0, 3); // 0 = No Play, 1 = Ladder, 2 = Snake
 
@@ -57,9 +59,10 @@ namespace SnakeAndLadder
 
                 Console.WriteLine($"You are now at position {playerPosition}.");
             }
-
-            Console.WriteLine("Game over.");
+            Console.WriteLine($"Congratulations! You reached the finish in {diceRolls} rolls.");
             Console.ReadKey();
+
+           
         }
     }
 }
