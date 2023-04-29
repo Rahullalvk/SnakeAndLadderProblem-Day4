@@ -19,7 +19,7 @@ namespace SnakeAndLadder
                 int roll = random.Next(1, 7);
                 Console.WriteLine($"You rolled a {roll}.");
 
-                int option = random.Next(0, 3); // 0 = No Play, 1 = Ladder, 2 = Snake
+                int option = random.Next(0, 3); 
 
                 switch (option)
                 {
