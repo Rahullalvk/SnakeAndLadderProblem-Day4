@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using System.Xml.Linq;
+using System.Reflection;
 
 namespace SnakeAndLadder
 {
@@ -12,13 +13,16 @@ namespace SnakeAndLadder
     {
         public static void DisplaySnakeAndLadder()
         {
-            int playerPosition = 0;
+            int player1Position = 0;
+            int player2Position = 0;
             Random random = new Random();
             int diceRolls = 0;
-            while (playerPosition < 100)
+            int currentPlayer = 1;
+
+            while (player1Position < 100 && player2Position < 100)
             {
                 int roll = random.Next(1, 7);
-                Console.WriteLine($"You rolled a {roll}.");
+                Console.WriteLine($"Player {currentPlayer} rolled a {roll}.");
                 diceRolls++;
 
                 int option = random.Next(0, 3); // 0 = No Play, 1 = Ladder, 2 = Snake
@@ -26,46 +30,91 @@ namespace SnakeAndLadder
                 switch (option)
                 {
                     case 0:
-                        Console.WriteLine("No Play. You stay in the same position.");
+                        Console.WriteLine("No Play. Player stays in the same position.");
                         break;
                     case 1:
                         int ladderSteps = random.Next(1, 7);
-                        Console.WriteLine($"You landed on a ladder! Move up {ladderSteps} positions.");
-                        playerPosition += ladderSteps;
+                        Console.WriteLine($"Player landed on a ladder! Move up {ladderSteps} positions.");
+                        if (currentPlayer == 1)
+                        {
+                            player1Position += ladderSteps;
+                        }
+                        else
+                        {
+                            player2Position += ladderSteps;
+                        }
                         break;
                     case 2:
                         int snakeSteps = random.Next(1, 7);
-                        Console.WriteLine($"You landed on a snake! Move back {snakeSteps} positions.");
-                        playerPosition -= snakeSteps;
+                        Console.WriteLine($"Player landed on a snake! Move back {snakeSteps} positions.");
+                        if (currentPlayer == 1)
+                        {
+                            player1Position -= snakeSteps;
+                        }
+                        else
+                        {
+                            player2Position -= snakeSteps;
+                        }
                         break;
                     default:
                         Console.WriteLine("Invalid option.");
                         break;
                 }
-                if (playerPosition < 0)
+
+                if (player1Position < 0)
                 {
-                    playerPosition = 0;
+                    player1Position = 0;
                 }
-                else if (playerPosition > 100)
+                else if (player1Position > 100)
                 {
-                    playerPosition = 100;
+                    player1Position = 100;
                 }
 
-                if (playerPosition == 100)
+                if (player2Position < 0)
                 {
-                    Console.WriteLine("Congratulations! You reached the finish.");
-                    break;
+                    player2Position = 0;
+                }
+                else if (player2Position > 100)
+                {
+                    player2Position = 100;
                 }
 
-                Console.WriteLine($"You are now at position {playerPosition}.");
+                Console.WriteLine($"Player 1 is now at position {player1Position}.");
+                Console.WriteLine($"Player 2 is now at position {player2Position}.");
+
+                if (option != 1)
+                {
+                    currentPlayer = (currentPlayer == 1) ? 2 : 1;
+                }
             }
-            Console.WriteLine($"Congratulations! You reached the finish in {diceRolls} rolls.");
-            Console.ReadKey();
 
-           
+            if (player1Position >= 100)
+            {
+                Console.WriteLine($"Player 1 won the game in {diceRolls} rolls!");
+            }
+            else
+            {
+                Console.WriteLine($"Player 2 won the game in {diceRolls} rolls!");
+            }
+
+            Console.ReadKey();
         }
     }
 }
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
 
 
 
